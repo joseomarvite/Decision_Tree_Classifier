@@ -103,3 +103,65 @@ val treeModel = model.stages(2).asInstanceOf[DecisionTreeClassificationModel]
 println(s"Learned classification tree model:\n ${treeModel.toDebugString}")
 ```
 ## Outputs
+```scala
+scala> :load Decision_tree_classifier.scala
+Loading Decision_tree_classifier.scala...
+import org.apache.spark.ml.Pipeline
+import org.apache.spark.ml.classification.DecisionTreeClassificationModel
+import org.apache.spark.ml.classification.DecisionTreeClassifier
+import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
+import org.apache.spark.ml.feature.{IndexToString, StringIndexer, VectorIndexer}
+19/11/10 08:40:05 WARN LibSVMFileFormat: 'numFeatures' option not specified, determining the number of features by going though the input. If you know the number in advance, please specify it via 'numFeatures' option to avoid the extra scan.
+data: org.apache.spark.sql.DataFrame = [label: double, features: vector]
+labelIndexer: org.apache.spark.ml.feature.StringIndexerModel = strIdx_10d853c957b9
+featureIndexer: org.apache.spark.ml.feature.VectorIndexerModel = vecIdx_f564b9c56b8a
+trainingData: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] = [label: double, features: vector]
+testData: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] = [label: double, features: vector]
+dt: org.apache.spark.ml.classification.DecisionTreeClassifier = dtc_f4a8946aecbb
+labelConverter: org.apache.spark.ml.feature.IndexToString = idxToStr_0f5fe95ee967
+pipeline: org.apache.spark.ml.Pipeline = pipeline_c049da4ed20b
+model: org.apache.spark.ml.PipelineModel = pipeline_c049da4ed20b
+predictions: org.apache.spark.sql.DataFrame = [label: double, features: vector ... 6 more fields]
++--------------+-----+--------------------+
+|predictedLabel|label|            features|
++--------------+-----+--------------------+
+|           0.0|  0.0|(692,[95,96,97,12...|
+|           0.0|  0.0|(692,[98,99,100,1...|
+|           0.0|  0.0|(692,[122,123,124...|
+|           0.0|  0.0|(692,[123,124,125...|
+|           0.0|  0.0|(692,[124,125,126...|
+|           0.0|  0.0|(692,[124,125,126...|
+|           0.0|  0.0|(692,[124,125,126...|
+|           1.0|  0.0|(692,[125,126,127...|
+|           0.0|  0.0|(692,[126,127,128...|
+|           0.0|  0.0|(692,[126,127,128...|
+|           0.0|  0.0|(692,[126,127,128...|
+|           0.0|  0.0|(692,[126,127,128...|
+|           0.0|  0.0|(692,[129,130,131...|
+|           0.0|  0.0|(692,[152,153,154...|
+|           0.0|  0.0|(692,[152,153,154...|
+|           0.0|  0.0|(692,[153,154,155...|
+|           1.0|  0.0|(692,[154,155,156...|
+|           0.0|  0.0|(692,[181,182,183...|
+|           1.0|  1.0|(692,[119,120,121...|
+|           1.0|  1.0|(692,[123,124,125...|
++--------------+-----+--------------------+
+only showing top 20 rows
+
+evaluator: org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator = mcEval_37cc9b54219c
+accuracy: Double = 0.9142857142857143
+Test Error = 0.08571428571428574
+treeModel: org.apache.spark.ml.classification.DecisionTreeClassificationModel = DecisionTreeClassificationModel (uid=dtc_f4a8946aecbb) of depth 2 with 5 nodes
+Learned classification tree model:
+ DecisionTreeClassificationModel (uid=dtc_f4a8946aecbb) of depth 2 with 5 nodes
+  If (feature 405 <= 21.0)
+   If (feature 99 in {2.0})
+    Predict: 0.0
+   Else (feature 99 not in {2.0})
+    Predict: 1.0
+  Else (feature 405 > 21.0)
+   Predict: 0.0
+
+
+scala>
+```
